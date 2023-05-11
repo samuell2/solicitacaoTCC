@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,6 +18,11 @@ export default function Login() {
   const [flShowPass, setShowPass] = useState(true);
   const [iconPass, setIconPass] = useState(eyeOff);
 
+  useEffect(() => {
+    setPassword('');
+    setUser('');
+  },[])
+
   async function autenticarLogin() {
     let loginTxt = txtUser;
     let senhaTxt = txtPassword;
@@ -28,12 +33,21 @@ export default function Login() {
 
     const response = await api.get(`/Users?user=${loginTxt}&password=${senhaTxt}`);
     const filteredData = response.tipo;
-    const idPessoa = response.data[0].id;
+    // const idPessoa = response.data[0].id;
+    // const nomePessoa = response.data[0].name;
 
     if (response.data.length < 1) {
       alert('Usuario e/ou senha invalido!');
-    } else {
+    } 
+    else if (txtUser === '') {
+      alert('Campo usuário é obrigatório!');
+    } 
+    else if (txtPassword === '') {
+      alert('Campo senha é obrigatório!');
+    } 
+    else {
       AsyncStorage.setItem('@SistemaTCC:userID', String(response.data[0].id));
+      AsyncStorage.setItem('@SistemaTCC:userName', String(response.data[0].name));
       if (response.data[0].tipo === "1"){
         navigation.navigate('srchProf')
       }

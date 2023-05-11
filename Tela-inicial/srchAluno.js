@@ -42,30 +42,28 @@ export default function BuscaAluno() {
         <Text style={styles.nome}>{aluno}</Text>
         <View>
           <Text style={styles.nome}>{nome}</Text>
-          <Text style={styles.genFont}>{desc}</Text>
+          <Text style={styles.genFont}>{desc.slice(0,20) + '...'}</Text>
         </View>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText} >Ver</Text>
         </TouchableOpacity>
-
-
       </View>
     </View>
   );
 
 
   const renderItem = ({ item }) => (
-    <Item nome={item.name} desc={item.desc} aluno={item.aluno} />
+    <Item nome={item.name} desc={item.desc} aluno={item.nameAluno} />
   );
   return (
     <View style={styles.container}>
       <View>
-      <View style={styles.container2}>
-        <Text style={styles.title}>Solicitações</Text>
+        <View style={styles.container2}>
+          <Text style={styles.title}>Solicitações</Text>
         </View>
         <View style={styles.container}>
           <View style={styles.item}>
-            <Text style={styles.title2}>ID Aluno</Text>
+            <Text style={styles.title2}>Aluno</Text>
             <Text style={styles.title2}>Solicitação</Text>
             <Text style={styles.title2}>                          </Text>
           </View>

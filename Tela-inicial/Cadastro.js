@@ -74,6 +74,30 @@ export default function Cadastro() {
       validacoes.push('Campo Email é obrigatório');
       retorno = false;
     }
+    if (txtPassword.trim() === '') {
+      validacoes.push('Campo senha é obrigatório');
+      retorno = false;
+    }
+    if (txtPasswordConfirm.trim() === '') {
+      validacoes.push('Campo confirmar senha é obrigatório');
+      retorno = false;
+    }
+    if (txtPasswordConfirm != txtPassword) {
+      validacoes.push('As senhas devem ser iguais...');
+      retorno = false;
+    }
+    if (txtDocument.trim() === '') {
+      validacoes.push('Campo documento é obrigatório');
+      retorno = false;
+    }
+    if (txtDocument.trim() === '') {
+      validacoes.push('Campo documento é obrigatório');
+      retorno = false;
+    }
+    if (tipo === '2' && area === '') {
+      validacoes.push('Campo área é obrigatório');
+      retorno = false;
+    }
     setListErrors(validacoes);
     return retorno;
   }
@@ -145,14 +169,12 @@ export default function Cadastro() {
         value={txtEmail}
       />
 
-
-        
-        {!tipoPessoa &&(
+      {!tipoPessoa && (
         <TextInput style={styles.input}
-        placeholder="Area de atuação"
-        onChangeText={text => setArea(text)}
-        maxLength={50}
-        value={area}
+          placeholder="Area de atuação"
+          onChangeText={text => setArea(text)}
+          maxLength={50}
+          value={area}
         />)}
 
 

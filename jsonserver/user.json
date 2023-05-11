@@ -76,6 +76,7 @@
       "desc": "Desenvolver uma pesquisa sobre a IA dentro da industria.",
       "id": "1",
       "aluno": "8",
+      "nameAluno": "aluno",
       "professor": "4"
     },
     {
@@ -83,6 +84,7 @@
       "desc": "Desenvolver um app para compra de ingressos.",
       "aluno": "8",
       "professor": "1",
+      "nameAluno": "aluno",
       "id": "my_dfDs"
     }
   ]

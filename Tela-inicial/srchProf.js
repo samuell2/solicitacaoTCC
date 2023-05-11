@@ -26,6 +26,7 @@ export default function BuscaProfessor() {
   const Imagem = require('../teste.png');
   const [search, setSearch] = useState('');
   const [idAluno, setIDAluno] = useState('');
+  const [nameAluno, setNameAluno] = useState('');
 
 
 
@@ -33,6 +34,7 @@ export default function BuscaProfessor() {
     //alert('Fazendo requisição');
     const response = await api.get('/Users?tipo=2');
     const id = await AsyncStorage.getItem('@SistemaTCC:userID') || '';
+    setNameAluno (await AsyncStorage.getItem('@SistemaTCC:userName')) || '';
     setIDAluno(id);
     const aluno = await api.get(`/Users?id=${idAluno}`);
     setProfList(response.data);
@@ -47,6 +49,7 @@ export default function BuscaProfessor() {
 
   async function NavegarSolic(id) {
     AsyncStorage.setItem('@SistemaTCC:userID', String(id));
+    AsyncStorage.setItem('@SistemaTCC:userName', String(nameAluno));
     navigation.navigate('Solicitacao')
   }
 
