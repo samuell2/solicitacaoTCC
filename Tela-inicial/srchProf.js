@@ -23,7 +23,6 @@ export default function BuscaProfessor() {
 
   const navigation = useNavigation();
   const [profList, setProfList] = useState([]);
-  const Imagem = require('../teste.png');
   const [search, setSearch] = useState('');
   const [idAluno, setIDAluno] = useState('');
   const [nameAluno, setNameAluno] = useState('');

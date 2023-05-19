@@ -6,11 +6,35 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import api from '../ApiService/api';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 
 const eye = 'eye';
 const eyeOff = 'eye-off';
 
 export default function Login() {
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+      shouldShowAlert: true,
+    })
+  });
+
+  async function handleCallNotification(){
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Teste',
+        body: 'Teste Corpo',
+        priority: 'true',
+        data: {},
+      },
+      trigger: {
+        seconds: 1,
+      }
+    })
+  }
+
 
   const navigation = useNavigation();
   const [txtUser, setUser] = useState('');
@@ -100,6 +124,9 @@ export default function Login() {
         </View>
         <TouchableOpacity style={styles.button} onPress={autenticarLogin} >
           <Text style={styles.buttonText} >Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handleCallNotification()} >
+          <Text style={styles.buttonText} >Teste</Text>
         </TouchableOpacity>
         <Text style={styles.genFont}>
           Não possui cadastro?
