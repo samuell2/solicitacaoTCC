@@ -15,19 +15,19 @@ export default function Login() {
 
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
-      shouldPlaySound: true,
+      shouldPlaySound: false,
       shouldSetBadge: true,
       shouldShowAlert: true,
     })
   });
 
-  async function handleCallNotification(){
+  async function handleCallNotification() {
     await Notifications.scheduleNotificationAsync({
       content: {
         title: 'Teste',
         body: 'Teste Corpo',
         priority: 'true',
-        data: {},
+        data: {}
       },
       trigger: {
         seconds: 1,
@@ -45,14 +45,14 @@ export default function Login() {
   useEffect(() => {
     setPassword('');
     setUser('');
-  },[])
+  }, [])
 
   async function autenticarLogin() {
     let loginTxt = txtUser;
     let senhaTxt = txtPassword;
 
     //AsyncStorage.setItem('@SistemaTCC:userName', response.data[0].nome);
-    
+
 
 
     const response = await api.get(`/Users?user=${loginTxt}&password=${senhaTxt}`);
@@ -62,17 +62,17 @@ export default function Login() {
 
     if (response.data.length < 1) {
       alert('Usuario e/ou senha invalido!');
-    } 
+    }
     else if (txtUser === '') {
       alert('Campo usuário é obrigatório!');
-    } 
+    }
     else if (txtPassword === '') {
       alert('Campo senha é obrigatório!');
-    } 
+    }
     else {
       AsyncStorage.setItem('@SistemaTCC:userID', String(response.data[0].id));
       AsyncStorage.setItem('@SistemaTCC:userName', String(response.data[0].name));
-      if (response.data[0].tipo === "1"){
+      if (response.data[0].tipo === "1") {
         navigation.navigate('srchProf')
       }
       else {
@@ -122,12 +122,14 @@ export default function Login() {
             onPress={handleChangeIcon}
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={autenticarLogin} >
-          <Text style={styles.buttonText} >Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handleCallNotification()} >
-          <Text style={styles.buttonText} >Teste</Text>
-        </TouchableOpacity>
+        <View style={styles.container2}>
+          <TouchableOpacity style={styles.button} onPress={autenticarLogin} >
+            <Text style={styles.buttonText} >Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => handleCallNotification()} >
+            <Text style={styles.buttonText} >Teste</Text>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.genFont}>
           Não possui cadastro?
         </Text>
@@ -137,7 +139,7 @@ export default function Login() {
       </View>
       <View>
         <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('Home')} >
-        <Text style={styles.buttonText} >Voltar</Text>
+          <Text style={styles.buttonText} >Voltar</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -150,6 +152,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  container2: {
+    marginTop: '10%',
+    marginBottom: '10%'
   },
   title: {
     color: '#2F819D',

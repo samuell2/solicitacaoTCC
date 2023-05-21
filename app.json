@@ -1,5 +1,14 @@
 {
   "expo": {
+     "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2890/2890697.png",
+          "color": "#ffffff"
+        }
+      ]
+     ],
     "name": "TDEH1",
     "slug": "TDEH1",
     "version": "1.0.0",
