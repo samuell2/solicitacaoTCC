@@ -22,6 +22,12 @@ export default function Login() {
   });
 
   async function handleCallNotification() {
+    const { status } = await Notifications.getPermissionAsync();
+    if (status != 'granted'){
+      alert ('Você não pode receber notificações!')
+      return;
+    }
+    await Notifications.getExpoPushTokenAsync();
     await Notifications.scheduleNotificationAsync({
       content: {
         title: 'Teste',
@@ -126,7 +132,7 @@ export default function Login() {
           <TouchableOpacity style={styles.button} onPress={autenticarLogin} >
             <Text style={styles.buttonText} >Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleCallNotification()} >
+          <TouchableOpacity style={styles.button} onPress={handleCallNotification} >
             <Text style={styles.buttonText} >Teste</Text>
           </TouchableOpacity>
         </View>
@@ -135,6 +141,12 @@ export default function Login() {
         </Text>
         <Text style={styles.clickFont} onPress={() => navigation.navigate('Cadastro')}>
           Cadastre-se
+        </Text>
+        <Text style={styles.genFont}>
+          
+        </Text>
+        <Text style={styles.clickFont} onPress={() => navigation.navigate('TrocaSenha')}>
+          Esqueci minha senha
         </Text>
       </View>
       <View>
