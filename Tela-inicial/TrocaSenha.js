@@ -33,7 +33,7 @@ export default function TrocaSenha() {
         await Notifications.scheduleNotificationAsync({
           content: {
             title: 'Troque sua senha!',
-            body: 'Uma solicitação para alterar sua senha foi enviada para o e-mail ' + email,
+            body: 'Uma solicitação para alterar sua senha foi enviada para o seu e-mail ' + email,
             priority: 'true',
             data: {}
           },
