@@ -7,6 +7,7 @@ import srchProf from './Tela-inicial/srchProf'
 import srchAluno from './Tela-inicial/srchAluno'
 import Solicitar from './Tela-inicial/Solicitar'
 import TrocaSenha from './Tela-inicial/TrocaSenha';
+import Solicitacoes from './Tela-inicial/Solicitacoes';
 import { useNavigation } from '@react-navigation/native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -20,6 +21,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Solicitacoes" component={Solicitacoes} />
         <Stack.Screen name="TrocaSenha" component={TrocaSenha} />
         <Stack.Screen name="srchProf" component={srchProf} />
         <Stack.Screen name="Solicitacao" component={Solicitar} />

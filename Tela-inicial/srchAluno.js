@@ -34,12 +34,16 @@ export default function BuscaAluno() {
 
   }
 
+  async function NavegarSolic(id) {
+    AsyncStorage.setItem('@SistemaTCC:solicID', id);
+    navigation.navigate('Solicitacoes')
+  }
 
   const filteredData = profList.filter((item) =>
     item.nomE_PROJ.toLowerCase().includes(search.toLowerCase())
   );
 
-  const Item = ({ nome, aluno, desc }) => (
+  const Item = ({ nome, aluno, desc, id }) => (
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.nome}>{aluno}</Text>
@@ -47,7 +51,7 @@ export default function BuscaAluno() {
           <Text style={styles.nome}>{nome}</Text>
           <Text style={styles.genFont}>{desc.slice(0,20) + '...'}</Text>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => NavegarSolic(id)}>
           <Text style={styles.buttonText} >Ver</Text>
         </TouchableOpacity>
       </View>
@@ -56,7 +60,7 @@ export default function BuscaAluno() {
 
 
   const renderItem = ({ item }) => (
-    <Item nome={item.nomE_PROJ} desc={item.descricao} aluno={item.nomE_ALUNO} />
+    <Item nome={item.nomE_PROJ} desc={item.descricao} aluno={item.nomE_ALUNO} id={item.solicitacaO_ID} />
   );
   return (
     <View style={styles.container}>
@@ -76,7 +80,7 @@ export default function BuscaAluno() {
         <FlatList
           data={filteredData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.solicitacaO_ID}
           ItemSeparatorComponent={() => <View style={{ borderBottomWidth: 1, borderBottomColor: '#ccc' }} />}
         />
       ) : (
