@@ -1,9 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
+
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+axios.defaults.headers.common["Access-Control-Allow-Headers"] =
+  "Origin, X-Requested-With, Content-Type, Accept";
 
 const api = axios.create({
-    baseURL: 'https://servidorvercel-beta.vercel.app/'
-    //baseURL: 'http://192.168.1.83:3000'
-    //baseURL: 'http://192.168.1.110:3000'
+    baseURL: 'http://localhost:5000',
+    //baseURL: 'https://servidorvercel-beta.vercel.app/'
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
 });
 
 export default api;

@@ -24,13 +24,13 @@ export default function Cadastro() {
   const [iconPass, setIconPass] = useState(eyeOff);
   const [txtName, setName] = useState('');
   const [txtUser, setUser] = useState('');
-  const [txtDocument, setDocument] = useState('');
   const [txtEmail, setEmail] = useState('');
-  const [txtPassword, setPassword] = useState('');
+  const [txtPassword, setPassword] = useState('');  
   const [txtPasswordConfirm, setPasswordConfirm] = useState('');
   const [tipo, setTipo] = useState('');
   const [lstErrors, setListErrors] = useState([]);
   const [area, setArea] = useState('');
+  const [RA, setRA] = useState('');
 
   const navigation = useNavigation();
 
@@ -51,15 +51,18 @@ export default function Cadastro() {
   async function handlePost() {
     if (camposPrenchidos()) {
       let objNewStudent = {
-        name: txtName,
-        user: txtUser,
-        password: txtPassword,
-        document: txtDocument,
-        tipo: tipoPessoa ? '1' : '2',
-        login: txtEmail,
-        area: area
+        nome: txtName,
+        tipopessoA_ID: tipoPessoa ? 1 : 2,
+        email: txtEmail,
+        senha: txtPassword,
+        ra: tipoPessoa ? RA : '',
+        areA_ATUACAO: area,
+        usuario: txtUser  
       };
-      const response = await api.post(`/users`, objNewStudent);
+
+      const data = objNewStudent;
+      console.log(data);
+      const response = await api.post("/login/create", data);
       alert('Usuario Criado!');
     }
   }
@@ -86,14 +89,6 @@ export default function Cadastro() {
       validacoes.push('As senhas devem ser iguais...');
       retorno = false;
     }
-    if (txtDocument.trim() === '') {
-      validacoes.push('Campo documento é obrigatório');
-      retorno = false;
-    }
-    if (txtDocument.trim() === '') {
-      validacoes.push('Campo documento é obrigatório');
-      retorno = false;
-    }
     if (tipo === '2' && area === '') {
       validacoes.push('Campo área é obrigatório');
       retorno = false;
@@ -112,13 +107,6 @@ export default function Cadastro() {
         onChangeText={text => setName(text)}
         maxLength={50}
         value={txtName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="CPF"
-        onChangeText={text => setDocument(text)}
-        maxLength={11}
-        value={txtDocument}
       />
       <TextInput style={styles.input}
         placeholder="Usuário"
@@ -176,6 +164,14 @@ export default function Cadastro() {
           maxLength={50}
           value={area}
         />)}
+
+      {tipoPessoa &&(
+        <TextInput style={styles.input}
+        placeholder="RA"
+        onChangeText={text => setRA(text)}
+        maxLength={6}
+        value={RA}/>
+      )}
 
 
       <View style={{ flexDirection: 'row' }}>

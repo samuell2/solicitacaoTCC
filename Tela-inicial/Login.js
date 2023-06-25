@@ -23,8 +23,8 @@ export default function Login() {
 
   async function handleCallNotification() {
     const { status } = await Notifications.getPermissionAsync();
-    if (status != 'granted'){
-      alert ('Você não pode receber notificações!')
+    if (status != 'granted') {
+      alert('Você não pode receber notificações!')
       return;
     }
     await Notifications.getExpoPushTokenAsync();
@@ -59,12 +59,19 @@ export default function Login() {
 
     //AsyncStorage.setItem('@SistemaTCC:userName', response.data[0].nome);
 
+    // const data = {
+    //   email: loginTxt,
+    //   senha: senhaTxt
+    // }
 
-
-    const response = await api.get(`/Users?user=${loginTxt}&password=${senhaTxt}`);
+    //const response = await api.get(`/Users?user=${loginTxt}&password=${senhaTxt}`);
+    const response = await api.post("/login/login", { email: loginTxt, senha: senhaTxt });
+    //console.log(response);
+    const people = await api.post("/login/getPeople", { pessoA_ID: response.data.result.pessoA_ID })
+    //console.log(people);
     const filteredData = response.tipo;
-    // const idPessoa = response.data[0].id;
-    // const nomePessoa = response.data[0].name;
+    const idPessoa = response.data.pessoA_ID;
+    const nomePessoa = people.data.nome;
 
     if (response.data.length < 1) {
       alert('Usuario e/ou senha invalido!');
@@ -76,9 +83,9 @@ export default function Login() {
       alert('Campo senha é obrigatório!');
     }
     else {
-      AsyncStorage.setItem('@SistemaTCC:userID', String(response.data[0].id));
-      AsyncStorage.setItem('@SistemaTCC:userName', String(response.data[0].name));
-      if (response.data[0].tipo === "1") {
+      AsyncStorage.setItem('@SistemaTCC:userID', response.data.result.pessoA_ID);
+      AsyncStorage.setItem('@SistemaTCC:userName', String(people.data.result.nome));
+      if (people.data.result.tipopessoA_ID === 1) {
         navigation.navigate('srchProf')
       }
       else {
@@ -143,7 +150,7 @@ export default function Login() {
           Cadastre-se
         </Text>
         <Text style={styles.genFont}>
-          
+
         </Text>
         <Text style={styles.clickFont} onPress={() => navigation.navigate('TrocaSenha')}>
           Esqueci minha senha

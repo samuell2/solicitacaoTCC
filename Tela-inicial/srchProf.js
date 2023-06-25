@@ -31,46 +31,43 @@ export default function BuscaProfessor() {
 
   async function ObterProfessores() {
     //alert('Fazendo requisição');
-    const response = await api.get('/Users?tipo=2');
+    const response = await api.get("/login/GetProfessor");
+    setProfList(response.data.result);
     const id = await AsyncStorage.getItem('@SistemaTCC:userID') || '';
-    setNameAluno (await AsyncStorage.getItem('@SistemaTCC:userName')) || '';
+    setNameAluno(await AsyncStorage.getItem('@SistemaTCC:userName')) || '';
     setIDAluno(id);
-    const aluno = await api.get(`/Users?id=${idAluno}`);
-    setProfList(response.data);
-  }
-
-
-
-  // AsyncStorage.setItem('@SistemaTCC:userID', String(idAluno));
-  const filteredData = profList.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  async function NavegarSolic(id) {
-    AsyncStorage.setItem('@SistemaTCC:userID', String(id));
+    const aluno = await api.post("/login/getPeople", { pessoA_ID: idAluno });
+    AsyncStorage.setItem('@SistemaTCC:userID', id);
     AsyncStorage.setItem('@SistemaTCC:userName', String(nameAluno));
-    navigation.navigate('Solicitacao')
   }
 
-
-  const Item = ({ nome, foto, area, id }) => (
+  const Item = ({ NOME, foto, AREA_ATUACAO, PESSOA_ID }) => (
     <View style={styles.container}>
       <View style={styles.item}>
         <Image source={{ uri: foto }} style={styles.foto} />
         <View>
-          <Text style={styles.nome}>{nome}</Text>
-          <Text style={styles.genFont}>{area}</Text>
+          <Text style={styles.nome}>{NOME}</Text>
+          <Text style={styles.genFont}>{AREA_ATUACAO}</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => NavegarSolic(id)}>
+        <TouchableOpacity style={styles.button} onPress={() => NavegarSolic(PESSOA_ID)}>
           <Text style={styles.buttonText} >Selecionar</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 
+  // AsyncStorage.setItem('@SistemaTCC:userID', String(idAluno));
+  const filteredData = profList.filter((item) =>
+    item.nome.toLowerCase().includes(search.toLowerCase())
+  );
+
+  async function NavegarSolic(id) {
+    AsyncStorage.setItem('@SistemaTCC:profID', id);
+    navigation.navigate('Solicitacao')
+  }
 
   const renderItem = ({ item }) => (
-    <Item area={item.area} nome={item.name} foto={'https://e7.pngegg.com/pngimages/442/17/png-clipart-computer-icons-user-profile-male-user-heroes-head.png'} />
+    <Item key={item.pessoA_ID} AREA_ATUACAO={item.areA_ATUACAO} NOME={item.nome} foto={'https://e7.pngegg.com/pngimages/442/17/png-clipart-computer-icons-user-profile-male-user-heroes-head.png'} PESSOA_ID={item.pessoA_ID} />
   );
   return (
     <View style={styles.container}>
@@ -88,7 +85,7 @@ export default function BuscaProfessor() {
         <FlatList
           data={filteredData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.pessoA_ID}
           ItemSeparatorComponent={() => <View style={{ borderBottomWidth: 1, borderBottomColor: '#ccc' }} />}
         />
       ) : (

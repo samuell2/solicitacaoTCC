@@ -17,7 +17,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Solicitar() {
   const [nomeSolic, setName] = useState('');
   const [descSolic, setDesc] = useState('');
-  const [temaSolic, setTema] = useState('');
   const [lstErrors, setListErrors] = useState([]);
   const navigation = useNavigation();
   const [idAluno, setIDAluno] = useState('');
@@ -28,17 +27,18 @@ export default function Solicitar() {
     if (camposPrenchidos()) {
       const alunoId = await AsyncStorage.getItem('@SistemaTCC:userID') || '';
       const profId = await AsyncStorage.getItem('@SistemaTCC:profID') || '';
-      const nameAluno = await AsyncStorage.getItem('@SistemaTCC:userName') || '';
+      //const nameAluno = await AsyncStorage.getItem('@SistemaTCC:userName') || '';
 
       let objNewSolic = {
-        name: nomeSolic,
-        desc: descSolic,
-        tema: temaSolic,
-        aluno: alunoId,
-        nameAluno: nameAluno,
-        professor: profId,
+        nomE_PROJ: nomeSolic,
+        descricao: descSolic,
+        alunO_SOLIC_ID: alunoId,
+        //nameAluno: nameAluno,
+        proF_ORIENT_ID: profId,
       };
-      const response = await api.post(`/solicitacao`, objNewSolic);
+      console.log(objNewSolic);
+      const response = await api.post("/worker/sendRequest", objNewSolic);
+
       alert('Solicitação Criada!');
     }
   }
@@ -47,10 +47,6 @@ export default function Solicitar() {
     let retorno = true;
     if (nomeSolic.trim() === '') {
       validacoes.push('Campo nome é obrigatório');
-      retorno = false;
-    }
-    if (temaSolic.trim() === '') {
-      validacoes.push('Campo tema é obrigatório');
       retorno = false;
     }
     if (descSolic.trim() === '') {
@@ -70,12 +66,12 @@ export default function Solicitar() {
         maxLength={50}
         value={nomeSolic}
       />
-      <TextInput style={styles.input}
+      {/* <TextInput style={styles.input}
         placeholder="Tema"
         onChangeText={text => setTema(text)}
         maxLength={50}
         value={temaSolic}
-      />
+      /> */}
       <TextInput
         style={{
           border: "solid #9F9F9F",

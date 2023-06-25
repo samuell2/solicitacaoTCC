@@ -24,16 +24,19 @@ export default function BuscaAluno() {
   const [search, setSearch] = useState('');
   const [alunoNome, setAluno] = useState('');
 
+
   async function ObterSolicitacao() {
     //alert('Fazendo requisição');
     const id = await AsyncStorage.getItem('@SistemaTCC:userID') || '';
-    const response = await api.get(`/solicitacao?professor=${id}`);
-    setProfList(response.data);
+    const response = await api.post("/worker/getRequests", {alunO_SOLIC_ID: 0, proF_ORIENT_ID: id});
+    console.log("AAAAAAAAA",response.data.result);
+    setProfList(response.data.result);
+
   }
 
 
   const filteredData = profList.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
+    item.nomE_PROJ.toLowerCase().includes(search.toLowerCase())
   );
 
   const Item = ({ nome, aluno, desc }) => (
@@ -53,7 +56,7 @@ export default function BuscaAluno() {
 
 
   const renderItem = ({ item }) => (
-    <Item nome={item.name} desc={item.desc} aluno={item.nameAluno} />
+    <Item nome={item.nomE_PROJ} desc={item.descricao} aluno={item.nomE_ALUNO} />
   );
   return (
     <View style={styles.container}>
