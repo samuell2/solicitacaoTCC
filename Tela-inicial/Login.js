@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   container2: {
-    marginTop: '10%',
+    marginTop: '1%',
     marginBottom: '10%'
   },
   title: {

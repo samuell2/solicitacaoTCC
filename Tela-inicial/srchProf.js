@@ -50,7 +50,7 @@ export default function BuscaProfessor() {
           <Text style={styles.genFont}>{AREA_ATUACAO}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={() => NavegarSolic(PESSOA_ID)}>
-          <Text style={styles.buttonText} >Selecionar</Text>
+          <Text style={styles.buttonText2} >+</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -216,6 +216,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  buttonText2: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 25
   },
   textResult: {
     color: '#000',

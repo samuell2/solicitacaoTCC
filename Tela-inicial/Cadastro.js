@@ -201,7 +201,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 16,
+    height: '6%'
   },
   title: {
     color: '#2F819D',
