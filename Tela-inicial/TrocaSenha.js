@@ -24,7 +24,7 @@ export default function TrocaSenha() {
         })
     });
     async function handleCallNotification() {
-        const { status } = await Notifications.getPermissionAsync();
+        const { status } = await Notifications.getPermissionsAsync();
         if (status != 'granted'){
           alert ('Você não pode receber notificações!')
           return;
